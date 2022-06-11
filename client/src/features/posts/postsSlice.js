@@ -42,7 +42,7 @@ const initialState = postsAdapter.getInitialState({
   error: null
 })
 
-const hostURL = 'http://localhost:8080'
+const hostURL = ((process.env.NODE_ENV) === "production") ? "" : "http://localhost:8080/";
 
 /* const initialState = {
   posts: [],

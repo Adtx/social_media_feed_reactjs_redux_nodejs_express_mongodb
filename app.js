@@ -1,10 +1,12 @@
 const express = require('express');
+const cors = require("cors");
 // const morgan = require('morgan');
 const mongoose = require('mongoose');
 const postRoutes = require('./routes/postRoutes');
 const userRoutes = require('./routes/userRoutes');
 const path = require('path');
 
+app.use(cors());
 
 // express app
 const app = express();
@@ -21,7 +23,7 @@ const dbURI = 'mongodb+srv://adriano:ftblrwhy@cluster0.sqqdi.mongodb.net/social_
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => {
         console.log('connected to db');
-        app.listen(8080);
+        app.listen(process.env.NODE_ENV === 'production' ? process.env.PORT || 80 : 8080);
     })
     .catch((error) => console.log(error));
 

@@ -14,8 +14,7 @@ const usersAdapter = createEntityAdapter()
 
 const initialState = usersAdapter.getInitialState()
 
-
-const hostURL = 'http://localhost:8080'
+const hostURL = ((process.env.NODE_ENV) === "production") ? "" : "http://localhost:8080/";
 
 // const initialState = []
 
