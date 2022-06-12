@@ -36,14 +36,6 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
-//Serve static assets if in production
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-    })
-}
-
 // routes
 /* app.get('/', (req, res) => {
     res.redirect('/posts');
@@ -64,3 +56,13 @@ app.use('/users', userRoutes);
 app.use((req, res) => {
     res.json({ message: 'Oops can\'t find that' });
 })
+
+// Serve static assets if in production
+if(process.env.NODE_ENV === "production") {
+    //Set static folder
+    app.use(express.static("client/build"));
+
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    });
+}
