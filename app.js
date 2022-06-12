@@ -32,8 +32,6 @@ app.set('view engine', 'ejs');
 // EXAMPLE USAGE OF THE 'MORGAN' LOGGER MIDDLEWARE
 // app.use(morgan('dev'));
 
-// STATIC FILES(images, styles, etc) are searched for in the 'public' folder
-app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
 // routes
@@ -52,17 +50,16 @@ app.use('/posts', postRoutes);
 // user routes
 app.use('/users', userRoutes);
 
-// 404 page
-app.use((req, res) => {
-    res.json({ message: 'Oops can\'t find that' });
-})
+// STATIC FILES(images, styles, etc) are searched for in the 'public' folder
+app.use(express.static('public'));
 
 // Serve static assets if in production
 if(process.env.NODE_ENV === "production") {
     //Set static folder
     app.use(express.static("client/build"));
-
-    app.get("*", (req, res) => {
-        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-    });
 }
+
+// 404 page
+app.use((req, res) => {
+    res.json({ message: 'Oops can\'t find that' });
+})
